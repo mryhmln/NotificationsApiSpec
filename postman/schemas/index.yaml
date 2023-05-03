@@ -1,0 +1,607 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'CfA Notifications'
+  description: Code for America Notifications API
+
+paths:
+  /notification-journey-templates:
+    post:
+      requestBody:
+        description: Create Notification Journey Template
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationJourneyTemplate'
+            example:
+              $ref: '#/components/examples/InterviewNotificationJourneyTemplatePostRequestExample/value'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationJourneyTemplate'
+              example:
+                $ref: '#/components/examples/InterviewNotificationJourneyTemplatePostResponseExample/value'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      description: Notification Journey Template Search
+      parameters:
+        - in: query
+          name: programEventType
+          schema:
+            $ref: '#/components/schemas/ProgramEventType'
+          description: The triggering program event for the notification journey
+        - in: query
+          name: state
+          schema:
+            $ref: '#/components/schemas/State'
+          description: The state associated with the notification journey
+        - in: query
+          name: version
+          schema:
+            $ref: '#/components/schemas/Version'
+          description: The notification journey template version number. If not specified, all versions will be returned.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificationJourneyTemplate'
+              example:
+                $ref: '#/components/examples/NotificationJourneyTemplateSearchGetResponseExample/value'
+  /notifications:
+    post:
+      requestBody:
+        description: Create Notification(s)
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/NotificationJourneyEvent'
+                - $ref: '#/components/schemas/Notification'
+            examples:
+              InterviewNotificationsPostRequestExample:
+                $ref: '#/components/examples/InterviewNotificationsPostRequestExample/value'
+              ManualNotificationPostRequestExample:
+                $ref: '#/components/examples/ManualNotificationPostRequestExample/value'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+              example:
+                - $ref: '#/components/examples/InterviewNotificationsPostResponseExample/value'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      description: Notification Search
+      parameters:
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            format: date-time
+            description: The starting date/time for when notifications were sent. (In UTC format)
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            format: date-time
+          description: The ending date/time for when notifications were sent. (In UTC format)
+        - in: query
+          name: state
+          schema:
+            $ref: '#/components/schemas/State'
+          description: The state associated with the notification
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+              example:
+                $ref: '#/components/examples/NotificationSearchGetResponseExample/value'  
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /notifications/{id}:
+    description: Get Notification by Id
+    get: 
+      parameters:
+        - name: id
+          in: path  
+          description: Notification id value
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+              example:
+                $ref: '#/components/examples/InterviewConfirmationNotificationGetResponseExample/value'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Client:
+      type: object
+      required: [ id, language ]
+      properties:
+        id:
+          type: string
+        language:
+          $ref: '#/components/schemas/Language'
+        firstName:
+          type: string
+        lastName:
+          type: string
+        mobilePhone:
+          $ref: '#/components/schemas/PhoneNumber'
+        email:
+          type: string
+          format: email
+    CreatedObjectResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+    CreatedObjectsResponse:
+      type: array
+      items:
+        properties:
+          id:
+            $ref: '#/components/schemas/Id'
+    Email:
+      type: string
+      format: email
+    Error:
+      type: object
+      required: [ message ]
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+    Id:
+      type: object
+      properties:
+        id: 
+          type: string
+          format: guid    
+    IdName:
+      allOf:
+        - $ref: '#/components/schemas/Id'
+        - type: object
+          properties:
+            name:
+              type: string
+    IdState:
+      allOf:
+        - $ref: '#/components/schemas/Id'
+        - type: object
+          properties:
+            state:
+              $ref: '#/components/schemas/State'
+    IdStateName:
+      allOf:
+        - $ref: '#/components/schemas/IdState'
+        - type: object
+          properties:
+            name:
+              type: string
+    Language:
+      description: Supported languages for notification text
+      type: string
+      enum: [en, es, vi, zh]
+    LanguageContentDictionary:
+      description: Dictionary of State (key), Content (value). Used when constructing templates whose content must be provided in multiple languages.
+      type: object
+      additionalProperties:
+        type: string
+    MergeField:
+      description: If the state field is empty, it means that the merge field is global, i.e. that it can be used by all states. 
+      allOf:
+        - $ref: '#/components/schemas/IdNameState'
+        - type: object
+          required: [ name ]
+          properties:
+            description:
+              type: string
+    MergeFieldFormat:
+      description: Supported formatting types for notification template merge fields
+      allOf:
+        - $ref: '#/components/schemas/IdName'
+        - type: object
+          required: [ name ]
+          properties:
+            description:
+              type: string
+    Notification:
+      allOf:
+        - $ref: '#/components/schemas/IdState'
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/NotificationType'
+            to:
+              oneOf:
+                - $ref: '#/components/schemas/PhoneNumber'
+                - $ref: '#/components/schemas/Email'
+              discriminator:
+                propertyName: type
+                mapping:
+                  Email: '#/components/schemas/Email'
+                  PhoneNumber: '#/components/schemas/PhoneNumber'
+            from:
+              oneOf:
+                - $ref: '#/components/schemas/PhoneNumber'
+                - $ref: '#/components/schemas/Email'
+              discriminator:
+                propertyName: type
+                mapping:
+                  Email: '#/components/schemas/Email'
+                  PhoneNumber: '#/components/schemas/PhoneNumber'
+            body:
+              type: string
+            deliveryStatus:
+              type: string
+              enum: [ Attempted, Delivered, Failed, Scheduled ]
+            createdOn:
+              type: string
+              format: date-time
+            attemptedOn:
+              type: string
+              format: date-time
+            deliveredOn:
+              type: string
+              format: date-time    
+    NotificationEmail:
+      allOf:
+        - $ref: '#/components/schemas/Notification'   
+        - type: object
+          required: [ subject ]  
+          properties:
+            subject:
+              type: string
+            cc:
+              type: array
+              items:
+                $ref: '#/components/schemas/Email'
+    NotificationJourneyEvent:
+      allOf:
+        - $ref: '#/components/schemas/ProgramEvent'
+        - type: object
+          required: [ mergeFields ]
+          properties:
+            version:
+              description: The version of the NotificationJourneyTemplate corresponding to this Program Event (to support A/B testing). If blank, use the most recent version.
+              $ref: '#/components/schemas/Version'
+            mergeFields:
+              description: dictionary of merge fields
+              type: object
+              additionalProperties:
+                type: string
+    NotificationJourneyTemplate:
+      allOf:
+        - $ref: '#/components/schemas/IdStateName'
+        - type: object
+          properties:
+            programEventType:
+              $ref: '#/components/schemas/ProgramEventType'
+            notificationTemplates:
+              type: array
+              items:
+                type: object
+                properties:
+                  template:
+                    oneOf:
+                      - $ref: '#/components/schemas/NotificationTemplate'
+                      - $ref: '#/components/schemas/NotificationTemplateEmail'
+                  timeOffset:
+                    type: integer
+                  timeOffsetFrom:
+                    $ref: '#/components/schemas/ProgramEventDateType'
+            createdOn:
+              type: string
+              format: date-time
+            version:
+              $ref: '#/components/schemas/Version'
+    NotificationTemplate:
+      allOf:
+        - $ref: '#/components/schemas/IdStateName'
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/NotificationType'
+            from:
+              type: string
+            to:
+              type: string
+            bodies:
+              $ref: '#/components/schemas/LanguageContentDictionary'
+            createdOn:
+              type: string
+              format: date-time
+    NotificationTemplateEmail:
+      allOf:
+        - $ref: '#/components/schemas/NotificationTemplate'
+        - type: object
+          required: [ subjects ]
+          properties:
+            subjects:
+              $ref: '#/components/schemas/LanguageContentDictionary'
+            cc:
+              type: array
+              items:
+                type: string
+    NotificationType:
+      type: string
+      enum: [ Email, SMS ]
+    PhoneNumber:
+      description: Phone number in E.164 format
+      type: string
+      pattern: '^\+?[1-9]\d{1,14}$'
+    Program:
+      allOf:
+        - $ref: '#/components/schemas/IdStateName'   
+        - type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/ProgramType'   
+    ProgramEvent:
+        type: object
+        required: [ state, program, type, client ]
+        properties:
+          id:
+            $ref: '#/components/schemas/Id'   
+          state:
+            $ref: '#/components/schemas/State'
+          program:
+            $ref: '#/components/schemas/ProgramType'
+          type:
+            type: string
+            enum: [ ApplicationSubmitted, InterviewScheduled, InterviewMissed, CaseDenied ]
+          client:
+            $ref: '#/components/schemas/Client'
+          eventDate:
+            type: string
+            format: date-time
+          dueDate:
+            type: string
+            format: date-time
+    ProgramEventDateType:
+      description: Used to specify the program event date type in the notification journey template. EventDate indicates the date of the program event. DueDate indicates the due date of the program event, e.g. interview deadline.
+      type: string
+      enum: [ DueDate, EventDate ]
+    ProgramEventType:
+      type: string
+      enum: [ ApplicationSubmitted, InterviewScheduled, InterviewMissed, CaseDenied ]
+    ProgramType:
+      type: string
+      enum: [ SNAP, TANF, CCAP, CHIP, WIC, Medicaid ]
+    State:
+      type: string
+      enum: [ AK, AL, AR, AS, AZ, CA, CO, CT, DC, DE, FL, GA, GU, HI, IA, ID, IL, IN, KS, KY, LA, MA, MD, ME, MI, MN, MO, MP, MS, MT, NC, ND, NE, NH, NJ, NM, NV, NY, OH, OK, OR, PA, PR, RI, SC, SD, TN, TX, UM, UT, VA, VI, VT, WA, WI, WV, WY ]
+    Version:
+      type: integer
+      minimum: 1
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+  examples:
+    InterviewNotificationJourneyTemplatePostRequestExample:
+      value:
+        name: 'Interview'
+        state: MD
+        programEventType: InterviewScheduled
+        notificationTemplates:
+          - name: 'Interview Confirmation'
+            type: SMS
+            to: '{{ ClientMobile | PhoneNumberE164 }}'
+            from: '{{ SmsSendFrom | PhoneNumberE164 }}'
+            bodies:
+              'en': 'Hi {{ ClientName | NameFirstLast }},\nYour {{ ProgramName }} interview has been scheduled for {{ InterviewDate | DateMMDDYY }} at {{ InterviewDate | TimeHHMM }}.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call {{ HelpNumber | PhoneNumber }}.\nIf you already had or rescheduled your interview, ignore this message.' 
+              'es': 'Hola {{ ClientName | NameFirstLast }},\nSu {{ ProgramName }} su entrevista ha sido programada para {{ InterviewDate | DateMMDDYY }} en {{ InterviewDate | TimeHHMM }}.\nLa llamada puede provenir de un número fuera del estado, bloqueado o no listado. Asegúrese de tomar TODAS las llamadas. Si necesita reprogramar, llame a {{ HelpNumber | PhoneNumber }}.\nSi ya tenía o reprogramó su entrevista, ignore este mensaje.'
+            timeOffset: 0
+            timeOffsetFrom: EventDate
+          - name: 'Interview Reminder'
+            type: SMS
+            to: '{{ ClientMobile | PhoneNumberE164 }}'
+            from: '{{ SmsSendFrom | PhoneNumberE164 }}'
+            bodies:
+              'en': 'Hi {{ ClientName | NameFirstLast }},\nYour interview for {{ ProgramName }} is TOMORROW at {{ InterviewDate | TimeHHMM }}.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call {{ HelpNumber | PhoneNumber }}.\nIf you already had or rescheduled your interview, ignore this message.'
+              'es': 'Hola {{ ClientName | NameFirstLast }},\nTu entrevista para {{ ProgramName }} es MAÑANA a las {{ InterviewDate | TimeHHMM }}.\nLa llamada puede provenir de un número fuera del estado, bloqueado o no listado. Asegúrese de tomar TODAS las llamadas. Si necesita reprogramar, llame a {{ HelpNumber | PhoneNumber }}.\nSi ya tenía o reprogramó su entrevista, ignore este mensaje.'
+            timeOffset: -24
+            timeOffsetFrom: DueDate
+    InterviewNotificationJourneyTemplatePostResponseExample:
+      value:
+        id: '8159313b-280b-405d-ad6b-6861fce5d430'
+        name: 'Interview'
+        notificationTemplates:
+          - id: '5b736ecd-7cb9-4f8a-b966-510663b9a85b'
+            name: 'Interview Confirmation'
+          - id: 'b69a0608-ea27-4392-96b9-7c01a4385ba0'
+            name: 'Interview Reminder'
+    NotificationJourneyTemplateSearchGetResponseExample:
+      value:
+        - id: '8159313b-280b-405d-ad6b-6861fce5d430'
+          name: 'Interview'
+          state: MD
+          programEventType: InterviewScheduled
+          version: 1
+          createdOn: '2023-04-23T09:38:09Z'
+          notificationTemplates:
+            - id: '5b736ecd-7cb9-4f8a-b966-510663b9a85b'
+              name: 'Interview Confirmation'
+              type: SMS
+              to: '{{ ClientMobile | PhoneNumberE164 }}'
+              from: '{{ SmsSendFrom | PhoneNumberE164 }}'
+              bodies:
+                'en': 'Hi {{ ClientName | NameFirstLast }},\nYour {{ ProgramName }} interview has been scheduled for {{ InterviewDate | DateMMDDYY }} at {{ InterviewDate | TimeHHMM }}.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call {{ HelpNumber | PhoneNumber }}.\nIf you already had or rescheduled your interview, ignore this message.' 
+                'es': 'Hola {{ ClientName | NameFirstLast }},\nSu {{ ProgramName }} su entrevista ha sido programada para {{ InterviewDate | DateMMDDYY }} en {{ InterviewDate | TimeHHMM }}.\nLa llamada puede provenir de un número fuera del estado, bloqueado o no listado. Asegúrese de tomar TODAS las llamadas. Si necesita reprogramar, llame a {{ HelpNumber | PhoneNumber }}.\nSi ya tenía o reprogramó su entrevista, ignore este mensaje.'
+              timeOffset: 0
+              timeOffsetFrom: EventDate
+              createdOn: '2023-04-23T09:38:09Z'
+            - id: 'b69a0608-ea27-4392-96b9-7c01a4385ba0'
+              name: 'Interview Reminder'
+              type: SMS
+              to: '{{ ClientMobile | PhoneNumberE164 }}'
+              from: '{{ SmsSendFrom | PhoneNumberE164 }}'
+              bodies:
+                'en': 'Hi {{ ClientName | NameFirstLast }},\nYour interview for {{ ProgramName }} is TOMORROW at {{ InterviewDate | TimeHHMM }}.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call {{ HelpNumber | PhoneNumber }}.\nIf you already had or rescheduled your interview, ignore this message.'
+                'es': 'Hola {{ ClientName | NameFirstLast }},\nTu entrevista para {{ ProgramName }} es MAÑANA a las {{ InterviewDate | TimeHHMM }}.\nLa llamada puede provenir de un número fuera del estado, bloqueado o no listado. Asegúrese de tomar TODAS las llamadas. Si necesita reprogramar, llame a {{ HelpNumber | PhoneNumber }}.\nSi ya tenía o reprogramó su entrevista, ignore este mensaje.'
+              timeOffset: -24
+              timeOffsetFrom: DueDate
+              createdOn: '2023-04-23T09:38:09Z'
+    InterviewNotificationsPostRequestExample:
+      value:
+        state: MD
+        program: SNAP
+        type: InterviewScheduled
+        client:
+          id: '12345'
+          language: 'en'
+        eventDate: '2023-04-23T10:38:09Z'
+        dueDate: '2023-05-25T18:00:00Z'
+        mergeFields:
+          ClientMobile: '+15715551234'
+          SmsSendFrom: '+15715555678'
+          ClientName: 'Jane Smith'
+          ProgramName: SNAP
+          InterviewDate: '2023-05-25T18:00:00Z'
+          HelpNumber: '+18005551111'
+    InterviewNotificationsPostResponseExample:
+      value:
+        - id: '6236047e-c652-4798-a84c-7270ecf64827'
+          deliveryStatus: 'Attempted'
+          createdOn: '2023-04-27T20:38:09Z'
+          attemptedOn: '2023-04-27T20:39:09Z'
+          deliveredOn: null
+        - id: '7128aeba-56dd-477b-a32b-7f68c5765e3a'
+          deliveryStatus: 'Scheduled'
+          createdOn: '2023-04-27T20:38:09Z'
+          attemptedOn: null
+          deliveredOn: null
+    ManualNotificationPostRequestExample:
+      value:
+        state: 'MD'
+        type: 'SMS'
+        to: '+15715551234'
+        from: '+15715555678'
+        body: 'Hello world!'    
+    ManualNotificationPostResponseExample:
+      value:
+        - id: '2e4574b2-d402-40d0-9c10-70e1c5a55e04'
+          deliveryStatus: 'Attempted'
+          createdOn: '2023-05-03T20:38:09Z'
+          attemptedOn: '2023-05-03T20:39:09Z'
+          deliveredOn: null
+    InterviewConfirmationNotificationGetResponseExample:
+      value:
+        id: '6236047e-c652-4798-a84c-7270ecf64827'
+        state: 'MD'
+        name: 'Interview Confirmation'
+        type: 'SMS'
+        to: '+15715551234'
+        from: '+15715555678'
+        body: 'Hi Jane Smith, Your SNAP interview has been scheduled for 5/25/2023 at 2:00. The call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call 1-800-555-1111. If you already had or rescheduled your interview, ignore this message.'
+        deliveryStatus: 'Delivered'
+        createdOn: '2023-04-27T20:38:09Z'
+        attemptedOn: '2023-04-27T20:39:09Z'
+    InterviewReminderNotificationGetResponseExample:
+      value:
+        id: '7128aeba-56dd-477b-a32b-7f68c5765e3a'       
+        state: 'MD'
+        name: 'Interview Reminder'
+        type: 'SMS'
+        to: '+15715551234'
+        from: '+15715555678'
+        body: 'Hi Jane Smith,\nYour interview for SNAP is TOMORROW at 2:00.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call 1-800-555-1111.\nIf you already had or rescheduled your interview, ignore this message.'
+        deliveryStatus: 'Scheduled'
+        createdOn: '2023-04-27T20:38:09Z'
+        attemptedOn: null
+        deliveredOn: null
+    NotificationSearchGetResponseExample:
+      value:
+        - id: '6236047e-c652-4798-a84c-7270ecf64827'
+          state: 'MD'
+          name: 'Interview Confirmation'
+          type: 'SMS'
+          to: '+15715551234'
+          from: '+15715555678'
+          body: 'Hi Jane Smith, Your SNAP interview has been scheduled for 5/25/2023 at 2:00. The call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call 1-800-555-1111. If you already had or rescheduled your interview, ignore this message.'
+          deliveryStatus: 'Delivered'
+          createdOn: '2023-04-27T20:38:09Z'
+          attemptedOn: '2023-04-27T20:39:09Z'
+        - id: '7128aeba-56dd-477b-a32b-7f68c5765e3a'       
+          state: 'MD'
+          name: 'Interview Reminder'
+          type: 'SMS'
+          to: '+15715551234'
+          from: '+15715555678'
+          body: 'Hi Jane Smith,\nYour interview for SNAP is TOMORROW at 2:00.\nThe call may come from an out of state, blocked or unlisted number. Make sure to pick up ALL calls. If you need to reschedule, call 1-800-555-1111.\nIf you already had or rescheduled your interview, ignore this message.'
+          deliveryStatus: 'Scheduled'
+          createdOn: '2023-04-27T20:38:09Z'
+          attemptedOn: null
+          deliveredOn: null
+security:
+  - ApiKey: []

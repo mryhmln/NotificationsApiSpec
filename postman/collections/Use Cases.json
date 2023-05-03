@@ -1,0 +1,868 @@
+{
+	"info": {
+		"_postman_id": "b187d49a-d318-4929-9126-538058d71752",
+		"name": "Use Cases",
+		"description": "Code for America Notifications API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25315588-b187d49a-d318-4929-9126-538058d71752"
+	},
+	"item": [
+		{
+			"name": "notifications",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "/notifications/:id",
+							"id": "c24a98e2-ad58-458d-bae1-ffdf3e7f4463",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "d136cc47-d9d0-4c94-8e71-502874fdb7c0",
+											"key": "id",
+											"value": "id,<string>"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "25d45035-13d4-4ba8-ae57-1e427bd6629f",
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "d136cc47-d9d0-4c94-8e71-502874fdb7c0",
+													"key": "id",
+													"value": "id,<string>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"state\": \"WV\",\n  \"type\": \"Email\",\n  \"to\": \"91834486773221\",\n  \"from\": \"+88041\",\n  \"body\": \"<string>\",\n  \"deliveryStatus\": \"Failed\",\n  \"createdOn\": \"<dateTime>\",\n  \"attemptedOn\": \"<dateTime>\",\n  \"deliveredOn\": \"<dateTime>\"\n}"
+								},
+								{
+									"id": "526333c8-c744-471e-b458-79953bb62066",
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "d136cc47-d9d0-4c94-8e71-502874fdb7c0",
+													"key": "id",
+													"value": "id,<string>"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"message\": \"<string>\"\n}"
+								},
+								{
+									"id": "e9d3a198-580a-4374-bd76-f4cc0ab6d59a",
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "d136cc47-d9d0-4c94-8e71-502874fdb7c0",
+													"key": "id",
+													"value": "id,<string>"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"message\": \"<string>\"\n}"
+								}
+							]
+						}
+					],
+					"id": "f0ba451a-3d0f-4cf2-ba1a-2204154bce8a"
+				},
+				{
+					"name": "/notifications",
+					"id": "25774c66-884e-4023-8251-1b5824a7e85f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client\": {\n    \"id\": \"<string>\",\n    \"language\": \"es\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"mobilePhone\": \"+72978310\",\n    \"email\": \"<email>\"\n  },\n  \"mergeFields\": {\n    \"veniam_65\": \"<string>\"\n  },\n  \"program\": \"Medicaid\",\n  \"state\": \"MD\",\n  \"type\": \"InterviewMissed\",\n  \"id\": {\n    \"id\": \"<string>\"\n  },\n  \"eventDate\": \"<dateTime>\",\n  \"dueDate\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notifications",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "2c7a42a6-9a01-4950-b5fb-d14ffe119d99",
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"client\": {\n    \"id\": \"<string>\",\n    \"language\": \"es\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"mobilePhone\": \"+72978310\",\n    \"email\": \"<email>\"\n  },\n  \"mergeFields\": {\n    \"veniam_65\": \"<string>\"\n  },\n  \"program\": \"Medicaid\",\n  \"state\": \"MD\",\n  \"type\": \"InterviewMissed\",\n  \"id\": {\n    \"id\": \"<string>\"\n  },\n  \"eventDate\": \"<dateTime>\",\n  \"dueDate\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notifications",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"state\": \"ND\",\n    \"type\": \"SMS\",\n    \"to\": \"+704682\",\n    \"from\": \"+29174\",\n    \"body\": \"<string>\",\n    \"deliveryStatus\": \"Failed\",\n    \"createdOn\": \"<dateTime>\",\n    \"attemptedOn\": \"<dateTime>\",\n    \"deliveredOn\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"state\": \"IL\",\n    \"type\": \"SMS\",\n    \"to\": \"+61834055966\",\n    \"from\": \"+50854535\",\n    \"body\": \"<string>\",\n    \"deliveryStatus\": \"Attempted\",\n    \"createdOn\": \"<dateTime>\",\n    \"attemptedOn\": \"<dateTime>\",\n    \"deliveredOn\": \"<dateTime>\"\n  }\n]"
+						},
+						{
+							"id": "22734319-f4be-43a6-a93f-1d3b88ae2e04",
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"client\": {\n    \"id\": \"<string>\",\n    \"language\": \"es\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"mobilePhone\": \"+72978310\",\n    \"email\": \"<email>\"\n  },\n  \"mergeFields\": {\n    \"veniam_65\": \"<string>\"\n  },\n  \"program\": \"Medicaid\",\n  \"state\": \"MD\",\n  \"type\": \"InterviewMissed\",\n  \"id\": {\n    \"id\": \"<string>\"\n  },\n  \"eventDate\": \"<dateTime>\",\n  \"dueDate\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notifications",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"id": "7c8a691a-842b-4344-ad8c-75f80c32438b",
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"client\": {\n    \"id\": \"<string>\",\n    \"language\": \"es\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"mobilePhone\": \"+72978310\",\n    \"email\": \"<email>\"\n  },\n  \"mergeFields\": {\n    \"veniam_65\": \"<string>\"\n  },\n  \"program\": \"Medicaid\",\n  \"state\": \"MD\",\n  \"type\": \"InterviewMissed\",\n  \"id\": {\n    \"id\": \"<string>\"\n  },\n  \"eventDate\": \"<dateTime>\",\n  \"dueDate\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notifications",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Notification Search",
+					"id": "1604285d-f74b-4eb0-b834-6591ed8df2ab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/notifications?startDate=<dateTime>&endDate=<dateTime>&state=GU",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "<dateTime>"
+								},
+								{
+									"description": "The ending date/time for when notifications were sent. (In UTC format)",
+									"key": "endDate",
+									"value": "<dateTime>"
+								},
+								{
+									"description": "The state associated with the notification",
+									"key": "state",
+									"value": "GU"
+								}
+							]
+						},
+						"description": "Notification Search"
+					},
+					"response": [
+						{
+							"id": "1cd05da5-b111-4c5f-a42c-691c8b31bec5",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications?startDate=<dateTime>&endDate=<dateTime>&state=GU",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The ending date/time for when notifications were sent. (In UTC format)",
+											"key": "endDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The state associated with the notification",
+											"key": "state",
+											"value": "GU"
+										}
+									]
+								},
+								"description": "Notification Search"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"state\": \"ND\",\n    \"type\": \"SMS\",\n    \"to\": \"+704682\",\n    \"from\": \"+29174\",\n    \"body\": \"<string>\",\n    \"deliveryStatus\": \"Failed\",\n    \"createdOn\": \"<dateTime>\",\n    \"attemptedOn\": \"<dateTime>\",\n    \"deliveredOn\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"state\": \"IL\",\n    \"type\": \"SMS\",\n    \"to\": \"+61834055966\",\n    \"from\": \"+50854535\",\n    \"body\": \"<string>\",\n    \"deliveryStatus\": \"Attempted\",\n    \"createdOn\": \"<dateTime>\",\n    \"attemptedOn\": \"<dateTime>\",\n    \"deliveredOn\": \"<dateTime>\"\n  }\n]"
+						},
+						{
+							"id": "a6bb6166-6fb4-416b-b2ae-a7621c92596e",
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications?startDate=<dateTime>&endDate=<dateTime>&state=GU",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The ending date/time for when notifications were sent. (In UTC format)",
+											"key": "endDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The state associated with the notification",
+											"key": "state",
+											"value": "GU"
+										}
+									]
+								},
+								"description": "Notification Search"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"id": "5f49f012-3835-43fa-b2b8-e29d1c182d1c",
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications?startDate=<dateTime>&endDate=<dateTime>&state=GU",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The ending date/time for when notifications were sent. (In UTC format)",
+											"key": "endDate",
+											"value": "<dateTime>"
+										},
+										{
+											"description": "The state associated with the notification",
+											"key": "state",
+											"value": "GU"
+										}
+									]
+								},
+								"description": "Notification Search"
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						}
+					]
+				}
+			],
+			"id": "539ed1c3-3207-4c70-86ad-95c58531c6cb"
+		},
+		{
+			"name": "notification-journey-templates",
+			"item": [
+				{
+					"name": "/notification-journey-templates",
+					"id": "55060240-1e3c-4250-8fc6-274e78ead672",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"<string>\",\n  \"state\": \"AR\",\n  \"name\": \"<string>\",\n  \"programEventType\": \"ApplicationSubmitted\",\n  \"notificationTemplates\": [\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"MA\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"ut2c_\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    },\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"OR\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"non_0\": \"<string>\",\n          \"magna_54b\": \"<string>\",\n          \"non3\": \"<string>\",\n          \"sinta\": \"<string>\",\n          \"deseruntc\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    }\n  ],\n  \"createdOn\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notification-journey-templates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification-journey-templates"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b9107e74-7765-4e60-b08f-1dfc2455a06f",
+							"name": "Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<string>\",\n  \"state\": \"AR\",\n  \"name\": \"<string>\",\n  \"programEventType\": \"ApplicationSubmitted\",\n  \"notificationTemplates\": [\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"MA\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"ut2c_\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    },\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"OR\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"non_0\": \"<string>\",\n          \"magna_54b\": \"<string>\",\n          \"non3\": \"<string>\",\n          \"sinta\": \"<string>\",\n          \"deseruntc\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    }\n  ],\n  \"createdOn\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notification-journey-templates",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notification-journey-templates"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"state\": \"AR\",\n  \"name\": \"<string>\",\n  \"programEventType\": \"ApplicationSubmitted\",\n  \"notificationTemplates\": [\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"MA\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"ut2c_\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    },\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"OR\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"non_0\": \"<string>\",\n          \"magna_54b\": \"<string>\",\n          \"non3\": \"<string>\",\n          \"sinta\": \"<string>\",\n          \"deseruntc\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    }\n  ],\n  \"createdOn\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}"
+						},
+						{
+							"id": "1e9da669-d3f1-41eb-b502-a2a3c725d928",
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<string>\",\n  \"state\": \"AR\",\n  \"name\": \"<string>\",\n  \"programEventType\": \"ApplicationSubmitted\",\n  \"notificationTemplates\": [\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"MA\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"ut2c_\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    },\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"OR\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"non_0\": \"<string>\",\n          \"magna_54b\": \"<string>\",\n          \"non3\": \"<string>\",\n          \"sinta\": \"<string>\",\n          \"deseruntc\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    }\n  ],\n  \"createdOn\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notification-journey-templates",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notification-journey-templates"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						},
+						{
+							"id": "19cdca3b-7561-4b51-be52-c798c4c4e154",
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<string>\",\n  \"state\": \"AR\",\n  \"name\": \"<string>\",\n  \"programEventType\": \"ApplicationSubmitted\",\n  \"notificationTemplates\": [\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"MA\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"ut2c_\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    },\n    {\n      \"template\": {\n        \"id\": \"<string>\",\n        \"state\": \"OR\",\n        \"name\": \"<string>\",\n        \"type\": \"Email\",\n        \"from\": \"<string>\",\n        \"to\": \"<string>\",\n        \"bodies\": {\n          \"non_0\": \"<string>\",\n          \"magna_54b\": \"<string>\",\n          \"non3\": \"<string>\",\n          \"sinta\": \"<string>\",\n          \"deseruntc\": \"<string>\"\n        },\n        \"createdOn\": \"<dateTime>\"\n      },\n      \"timeOffset\": \"<integer>\",\n      \"timeOffsetFrom\": \"DueDate\"\n    }\n  ],\n  \"createdOn\": \"<dateTime>\",\n  \"version\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/notification-journey-templates",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notification-journey-templates"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"message\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Notification Journey Template Search",
+					"id": "0223a992-f509-4aad-81ea-e3e42a5ab4c6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/notification-journey-templates?programEventType=CaseDenied&state=GU&version=<integer>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification-journey-templates"
+							],
+							"query": [
+								{
+									"description": "The triggering program event for the notification journey",
+									"key": "programEventType",
+									"value": "CaseDenied"
+								},
+								{
+									"description": "The state associated with the notification journey",
+									"key": "state",
+									"value": "GU"
+								},
+								{
+									"description": "The notification journey template version number. If not specified, all versions will be returned.",
+									"key": "version",
+									"value": "<integer>"
+								}
+							]
+						},
+						"description": "Notification Journey Template Search"
+					},
+					"response": [
+						{
+							"id": "81a9408d-3e3a-499a-801e-100d3efef178",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notification-journey-templates?programEventType=CaseDenied&state=GU&version=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notification-journey-templates"
+									],
+									"query": [
+										{
+											"description": "The triggering program event for the notification journey",
+											"key": "programEventType",
+											"value": "CaseDenied"
+										},
+										{
+											"description": "The state associated with the notification journey",
+											"key": "state",
+											"value": "GU"
+										},
+										{
+											"description": "The notification journey template version number. If not specified, all versions will be returned.",
+											"key": "version",
+											"value": "<integer>"
+										}
+									]
+								},
+								"description": "Notification Journey Template Search"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"state\": \"OH\",\n    \"name\": \"<string>\",\n    \"programEventType\": \"InterviewMissed\",\n    \"notificationTemplates\": [\n      {\n        \"template\": {\n          \"id\": \"<string>\",\n          \"state\": \"WV\",\n          \"name\": \"<string>\",\n          \"type\": \"Email\",\n          \"from\": \"<string>\",\n          \"to\": \"<string>\",\n          \"bodies\": {\n            \"laborum_b7c\": \"<string>\"\n          },\n          \"createdOn\": \"<dateTime>\"\n        },\n        \"timeOffset\": \"<integer>\",\n        \"timeOffsetFrom\": \"EventDate\"\n      },\n      {\n        \"template\": {\n          \"id\": \"<string>\",\n          \"state\": \"PA\",\n          \"name\": \"<string>\",\n          \"type\": \"Email\",\n          \"from\": \"<string>\",\n          \"to\": \"<string>\",\n          \"bodies\": {\n            \"reprehenderit_3a\": \"<string>\",\n            \"laboris_0a2\": \"<string>\",\n            \"mollit_d9\": \"<string>\"\n          },\n          \"createdOn\": \"<dateTime>\"\n        },\n        \"timeOffset\": \"<integer>\",\n        \"timeOffsetFrom\": \"EventDate\"\n      }\n    ],\n    \"createdOn\": \"<dateTime>\",\n    \"version\": \"<integer>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"state\": \"MN\",\n    \"name\": \"<string>\",\n    \"programEventType\": \"InterviewScheduled\",\n    \"notificationTemplates\": [\n      {\n        \"template\": {\n          \"id\": \"<string>\",\n          \"state\": \"MD\",\n          \"name\": \"<string>\",\n          \"type\": \"SMS\",\n          \"from\": \"<string>\",\n          \"to\": \"<string>\",\n          \"bodies\": {\n            \"reprehenderitfc\": \"<string>\"\n          },\n          \"createdOn\": \"<dateTime>\"\n        },\n        \"timeOffset\": \"<integer>\",\n        \"timeOffsetFrom\": \"DueDate\"\n      },\n      {\n        \"template\": {\n          \"id\": \"<string>\",\n          \"state\": \"ID\",\n          \"name\": \"<string>\",\n          \"type\": \"Email\",\n          \"from\": \"<string>\",\n          \"to\": \"<string>\",\n          \"bodies\": {\n            \"et_b5\": \"<string>\"\n          },\n          \"createdOn\": \"<dateTime>\"\n        },\n        \"timeOffset\": \"<integer>\",\n        \"timeOffsetFrom\": \"EventDate\"\n      }\n    ],\n    \"createdOn\": \"<dateTime>\",\n    \"version\": \"<integer>\"\n  }\n]"
+						}
+					]
+				}
+			],
+			"id": "4a761138-2091-4e04-8a07-e88f71c45032"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-Api-Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"id": "053b0d97-9fef-4f74-a1d5-487f05e37603",
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
